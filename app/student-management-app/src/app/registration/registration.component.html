@@ -1,0 +1,146 @@
+<div
+  class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"
+>
+  <div class="max-w-md w-full space-y-8">
+    <div>
+      <img
+        class="mx-auto h-12 w-auto"
+        src="https://tailwindui.com/img/logos/workflow-mark-blue-600.svg"
+        alt="Workflow"
+      />
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Register
+      </h2>
+    </div>
+    <form class="mt-8 space-y-6" action="#" method="POST">
+      <!-- User Type Selection Dropdown -->
+      <div class="rounded-md shadow-sm -space-y-px">
+        <label for="userType" class="sr-only">User Type</label>
+        <select
+          id="userType"
+          name="userType"
+          [(ngModel)]="userType"
+          class="appearance-none rounded-none relative block w-full px-3 py-2 bg-white border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+        >
+          <option value="student">Student</option>
+          <option value="teacher">Teacher</option>
+          <option value="parent">Parent</option>
+        </select>
+      </div>
+
+      <!-- Render Additional Fields Based on User Type -->
+      <ng-container *ngIf="userType === 'student'">
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700" for="grade"
+            >Grade</label
+          >
+          <input
+            type="text"
+            id="grade"
+            name="grade"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+          />
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="userType === 'teacher'">
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700" for="subject"
+            >Subject</label
+          >
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+          />
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="userType === 'parent'">
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700" for="children"
+            >Children</label
+          >
+          <input
+            type="text"
+            id="children"
+            name="children"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+          />
+        </div>
+      </ng-container>
+
+      <!-- Continue with the rest of the form and buttons -->
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="name"
+          >Name</label
+        >
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="phone"
+          >Phone</label
+        >
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        />
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700"
+          >Email address</label
+        >
+        <div class="mt-1">
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <label for="password" class="block text-sm font-medium text-gray-700"
+          >Password</label
+        >
+        <div class="mt-1">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <!-- Rest of the form buttons -->
+
+        <div class="text-sm">
+          <a
+            href="/login"
+            class="font-medium text-indigo-600 hover:text-indigo-500"
+          >
+            Already have an account?
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
