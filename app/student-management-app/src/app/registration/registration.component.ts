@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class RegistrationComponent {
   userType: string = 'student';
+
+  constructor() {}
+
+  onClear() {
+    this.userType = 'student';
+  }
 }
