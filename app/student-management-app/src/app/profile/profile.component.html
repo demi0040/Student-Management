@@ -1,1 +1,46 @@
-<p>profile works!</p>
+<div class="container mx-auto mt-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+      <h2 class="text-2xl mb-4 font-medium text-indigo-600">User Profile</h2>
+      <p><strong>Name:</strong> {{ userProfile.name }}</p>
+      <p><strong>Email:</strong> {{ userProfile.email }}</p>
+      <p><strong>Phone:</strong> {{ userProfile.phone }}</p>
+
+      <!-- Show additional fields based on user type -->
+      <ng-container *ngIf="userProfile.userType === 'student'">
+        <p><strong>Grade:</strong> {{ userProfile.grade }}</p>
+      </ng-container>
+
+      <ng-container *ngIf="userProfile.userType === 'teacher'">
+        <p><strong>Subject:</strong> {{ userProfile.subject }}</p>
+      </ng-container>
+
+      <ng-container *ngIf="userProfile.userType === 'parent'">
+        <p><strong>Children:</strong> {{ userProfile.children?.join(", ") }}</p>
+      </ng-container>
+    </div>
+
+    <!-- Placeholder for Profile Picture -->
+    <div class="flex items-center justify-center">
+      <svg
+        class="w-24 h-24 text-gray-500"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 14l9-5-9-5-9 5 9 5z"
+        ></path>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 22h6a2 2 0 002-2v-1a2 2 0 00-2-2H9a2 2 0 00-2 2v1a2 2 0 002 2z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+</div>

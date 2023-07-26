@@ -1,0 +1,61 @@
+<!-- sidebar.component.html -->
+<div
+  class="flex flex-col w-64 h-screen bg-gradient-to-r from-blue-300 via-blue-400 to-blue-600 py-4"
+>
+  <div
+    class="flex items-center justify-center h-20 border-b border-gray-700 mt-20"
+  >
+    <img
+      class="mx-5 h-12 w-auto my-5"
+      src="https://tailwindui.com/img/logos/workflow-mark-blue-600.svg"
+      alt="Workflow"
+    />
+    <h1 class="text-white text-xl font-semibold">Student Management</h1>
+  </div>
+  <nav class="flex flex-col flex-grow mt-5">
+    <a
+      routerLink="/profile"
+      class="flex items-center py-2 px-4 text-white hover:bg-gray-700"
+      routerLinkActive="bg-gray-700"
+    >
+      Profile
+    </a>
+    <a
+      routerLink="/grades"
+      class="flex items-center py-2 px-4 text-white hover:bg-gray-700"
+      routerLinkActive="bg-gray-700"
+    >
+      Menu Item
+    </a>
+    <a
+      routerLink="/assignments"
+      class="flex items-center py-2 px-4 text-white hover:bg-gray-700"
+      routerLinkActive="bg-gray-700"
+    >
+      Manu Item
+    </a>
+    <!-- Add more menu options here -->
+  </nav>
+  <div class="flex items-center justify-center h-20 border-t border-gray-700">
+    <button
+      class="flex items-center py-2 px-4 text-white hover:bg-gray-700"
+      (click)="logout()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 mr-3"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 15l7-7 7 7"
+        ></path>
+      </svg>
+      Logout
+    </button>
+  </div>
+</div>
