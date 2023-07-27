@@ -4,13 +4,11 @@ const { buildSchema } = require("graphql");
 const sqlite3 = require("sqlite3").verbose();
 
 const app = express();
-const PORT = 4001; // You can choose any available port for the server
+const PORT = 4001;
 
 // Connect to SQLite database
-const db = new sqlite3.Database("data/login.db"); // Using in-memory database for simplicity
-// Replace ':memory:' with an actual file path for persistent database storage if needed
+const db = new sqlite3.Database("data/login.db");
 
-// Create a table for users (login information)
 // Create a table for users (login information)
 db.serialize(() => {
   db.run(`
@@ -33,7 +31,7 @@ const schema = buildSchema(`
   }
 
   type Query {
-    getUser(id: ID!): User
+    getUser(username: String!): User
   }
 
   type Mutation {
@@ -41,11 +39,11 @@ const schema = buildSchema(`
   }
 `);
 
-// Define your query and mutation resolvers here
+// query and mutation resolvers
 const root = {
-  getUser: ({ id }) => {
+  getUser: ({ username }) => {
     return new Promise((resolve, reject) => {
-      db.get("SELECT * FROM users WHERE id = ?", id, (err, row) => {
+      db.get("SELECT * FROM users WHERE username = ?", username, (err, row) => {
         if (err) {
           reject(err);
         } else {
@@ -74,7 +72,7 @@ const root = {
   },
 };
 
-// Create a GraphQL endpoint
+// GraphQL endpoint
 app.use(
   "/graphql",
   graphqlHTTP({
