@@ -110,6 +110,11 @@ const typeDefs = gql`
     children: [String!]!
   }
 
+  type UserRegistration {
+    user: User
+    profile: Profile
+  }
+
   type Query {
     getUser(username: String!): User
     getProfile(userType: String!, username: String!): Profile
@@ -125,11 +130,41 @@ const typeDefs = gql`
       phone: String!
       additionalField: String!
     ): Profile
+    newRegistration(
+      username: String!
+      password: String!
+      userType: String!
+      profileInput: ProfileInput!
+    ): UserRegistration
+  }
+
+  input ProfileInput {
+    name: String!
+    phone: String!
+    email: String!
+    userTypeDetails: String!
   }
 `;
 
 // Define resolvers for the schema
 const resolvers = {
+  Profile: {
+    __resolveType(profile, context, info) {
+      if (profile.grade) {
+        return "Student";
+      }
+
+      if (profile.subject) {
+        return "Teacher";
+      }
+
+      if (profile.children) {
+        return "Parent";
+      }
+
+      return null; // GraphQLError is thrown
+    },
+  },
   Query: {
     getUser: async (_, { username }, { dataSources }) => {
       return dataSources.loginAPI.getUser(username);
@@ -138,6 +173,7 @@ const resolvers = {
       return dataSources.profileAPI.getProfile(userType, username);
     },
   },
+  // In your resolvers
   Mutation: {
     addUser: async (_, { username, password, userType }, { dataSources }) => {
       return dataSources.loginAPI.addUser(username, password, userType);
@@ -156,19 +192,39 @@ const resolvers = {
         additionalField
       );
     },
-  },
-  Profile: {
-    __resolveType(profile, context, info) {
-      if (profile.grade) {
-        return "Student";
+    newRegistration: async (
+      _,
+      { username, password, userType, profileInput },
+      { dataSources }
+    ) => {
+      const user = await dataSources.loginAPI.addUser(
+        username,
+        password,
+        userType
+      );
+
+      if (!user) {
+        throw new Error("Failed to create user");
       }
-      if (profile.subject) {
-        return "Teacher";
+
+      const profile = await dataSources.profileAPI.addProfile(
+        userType,
+        username,
+        profileInput.name,
+        profileInput.phone,
+        profileInput.email,
+        profileInput.userTypeDetails
+      );
+
+      if (!profile) {
+        throw new Error("Failed to create profile");
       }
-      if (profile.children) {
-        return "Parent";
-      }
-      return null;
+
+      // return both the user and the profile
+      return {
+        user: user,
+        profile: profile,
+      };
     },
   },
 };
