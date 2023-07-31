@@ -55,21 +55,25 @@ const schema = buildSchema(`
 // query and mutation resolvers here
 const root = {
   getStudent: async ({ username }) => {
-    const db = getDB();
-    const student = await db.collection("students").findOne({ username });
-    return student;
+    try {
+      const db = getDB();
+      const student = await db.collection("students").findOne({ username });
+      return { ...student, id: student._id.toString() };
+    } catch (error) {
+      console.error("Error fetching student: ", error);
+    }
   },
 
   getTeacher: async ({ username }) => {
     const db = getDB();
     const teacher = await db.collection("teachers").findOne({ username });
-    return teacher;
+    return { ...teacher, id: teacher._id.toString() };
   },
 
   getParent: async ({ username }) => {
     const db = getDB();
     const parent = await db.collection("parents").findOne({ username });
-    return parent;
+    return { ...parent, id: parent._id.toString() };
   },
 
   createStudent: async ({ username, name, email, phone, grade }) => {

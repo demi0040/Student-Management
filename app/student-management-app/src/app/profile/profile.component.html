@@ -1,5 +1,5 @@
 <div class="container mx-auto mt-8">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <div *ngIf="userProfile" class="grid grid-cols-1 md:grid-cols-2 gap-8">
     <div>
       <h2 class="text-2xl mb-4 font-medium text-indigo-600">User Profile</h2>
       <p><strong>Name:</strong> {{ userProfile.name }}</p>
@@ -7,15 +7,15 @@
       <p><strong>Phone:</strong> {{ userProfile.phone }}</p>
 
       <!-- Show additional fields based on user type -->
-      <ng-container *ngIf="userProfile.userType === 'student'">
+      <ng-container *ngIf="userType === 'Student'">
         <p><strong>Grade:</strong> {{ userProfile.grade }}</p>
       </ng-container>
 
-      <ng-container *ngIf="userProfile.userType === 'teacher'">
+      <ng-container *ngIf="userType === 'Teacher'">
         <p><strong>Subject:</strong> {{ userProfile.subject }}</p>
       </ng-container>
 
-      <ng-container *ngIf="userProfile.userType === 'parent'">
+      <ng-container *ngIf="userType === 'Parent'">
         <p><strong>Children:</strong> {{ userProfile.children?.join(", ") }}</p>
       </ng-container>
     </div>

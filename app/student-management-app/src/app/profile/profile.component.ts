@@ -1,27 +1,27 @@
-import { Component, Input } from '@angular/core';
-
-interface UserProfile {
-  userType: 'student' | 'teacher' | 'parent';
-  name: string;
-  email: string;
-  phone: string;
-  grade?: string; // Only for students
-  subject?: string; // Only for teachers
-  children?: string[]; // Only for parents
-}
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { ProfileService } from '../services/profile.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
+  styleUrls: [],
 })
-export class ProfileComponent {
-  // Mock data for demonstration purposes
-  userProfile: UserProfile = {
-    userType: 'student',
-    name: 'John Doe',
-    email: 'john@example.com',
-    phone: '123-456-7890',
-    grade: '10th',
-  };
+export class ProfileComponent implements OnInit {
+  user: string = this.userService.getCurrentUser();
+  userProfile: any = {};
+  userType: string = this.userService.getUserType();
+
+  constructor(
+    private userService: UserService,
+    private profileService: ProfileService
+  ) {}
+
+  ngOnInit(): void {
+    this.profileService
+      .getProfile(this.userType, this.user)
+      .subscribe((result) => {
+        this.userProfile = result.data.getProfile;
+      });
+  }
 }

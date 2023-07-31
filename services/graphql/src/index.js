@@ -162,7 +162,7 @@ const resolvers = {
         return "Parent";
       }
 
-      return null; // GraphQLError is thrown
+      return "null"; // GraphQLError is thrown
     },
   },
   Query: {

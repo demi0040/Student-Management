@@ -1,9 +1,13 @@
 <!-- app.component.html -->
 <div class="flex">
-  <app-sidebar *ngIf="!hideNavbarAndSidebar"></app-sidebar>
+  <app-sidebar
+    [ngClass]="hideNavbarAndSidebar ? 'hidden' : 'block'"
+  ></app-sidebar>
   <div class="flex-grow bg-gray-50">
-    <app-navbar *ngIf="!hideNavbarAndSidebar"></app-navbar>
+    <app-navbar
+      [ngClass]="hideNavbarAndSidebar ? 'hidden' : 'block'"
+    ></app-navbar>
+    <app-snackbar></app-snackbar>
     <router-outlet></router-outlet>
-    <!-- This will display the content of different pages -->
   </div>
 </div>
